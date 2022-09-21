@@ -1,9 +1,8 @@
+import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
+import 'firebase/compat/auth';
 
-import  firebase  from "firebase/app";
-import   "firebase/firestore";
-import   "firebase/auth";
-
-const firebaseConfig = {
+const fbConfig = {
     apiKey: "AIzaSyBdxBuqnuc2cWKz47ZUcHEnVaZK3G63Pf8",
     authDomain: "projectapp-1c8e8.firebaseapp.com",
     projectId: "projectapp-1c8e8",
@@ -13,6 +12,6 @@ const firebaseConfig = {
     measurementId: "G-HCWB8QM6EJ"
   };
 
-  firebase.initializeApp(firebaseConfig);
+  firebase.initializeApp(fbConfig);
   firebase.firestore().settings({timestampsInSnapshot: true});
   export default firebase;

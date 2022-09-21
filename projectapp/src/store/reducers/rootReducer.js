@@ -4,7 +4,7 @@ import projectReducer from "./projectReducer";
 
 
 
-const rootReducer = ({
+const rootReducer = combineReducers ({
     auth:authReducer,
     project:projectReducer
 }) 

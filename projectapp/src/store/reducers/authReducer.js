@@ -1,9 +1,9 @@
 import React from 'react'
-const initialState ={}
+const initialState ={
+  id:1
+}
 const authReducer = (state=initialState,action) => {
-  return (
-    <div>authReducer</div>
-  )
+  return state;
 }
 
 export default authReducer

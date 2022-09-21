@@ -18,7 +18,7 @@ setState({...state,[e.target.id]: e.target.value})
     
 const handleSubmit= (e) => {
     e.preventDefault()
-    props.createProject(state)
+    props.submitData(state)
  }
 
   return (
@@ -43,7 +43,7 @@ const handleSubmit= (e) => {
 
 const mapDispatchToProps = (dispatch) =>{
     return {
-        createProject:(project) => dispatch(createProject(project))
+        submitData:(projectState) => dispatch(createProject(projectState))
     }
 }
 

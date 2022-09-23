@@ -1,10 +1,10 @@
 import React from "react";
 import ProjectList from "../projects/ProjectList";
 import Notifications from "./Notifications";
-import {connect, useSelector} from 'react-redux'
+import {connect} from 'react-redux'
 import {firestoreConnect} from 'react-redux-firebase';
 import {compose} from 'redux' ;
- import  {FirestoreConnectWrapper} from 'react-redux-firebase'
+ 
 const Dashboard = (props) => {
   //const projects = useSelector((state) => state.project);
 
@@ -25,7 +25,7 @@ const {projects}=props;
 };
 
 const mapStateToProps = (state) =>{
-   console.log(state);
+   
   return {
     // projects:state.project.projects,
     projects:state.firestore.ordered.projects

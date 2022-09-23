@@ -8,22 +8,31 @@ import rootReducer from "./store/reducers/rootReducer";
 import thunk from "redux-thunk";
 import { createFirestoreInstance ,getFirestore} from "redux-firestore";
 import { ReactReduxFirebaseProvider, getFirebase } from "react-redux-firebase";
-import firebase from "./config/fbConfig";
+import firebaseConfig from "./config/fbConfig";
 
 const store = createStore(
   rootReducer,
   compose(applyMiddleware(thunk.withExtraArgument({ getFirebase,getFirestore })))
 );
-const rrfConfig = {}; // react-redux-firebase config
+const rrfConfig = {
+  userProfile: 'users',
+  useFirestoreForProfile: true,
+  enableLogging: true
+}; 
+// react-redux-firebase config
 // userProfile: "users",
 // useFirestoreForProfile: true,
 // attachAuthIsReady: true,
+
 const rrfProps = {
-  firebase,
+  firebase: firebaseConfig,
   config: rrfConfig,
   dispatch: store.dispatch,
   createFirestoreInstance
 };
+
+
+//https://codesandbox.io/s/blissful-lehmann-r610w?file=/src/index.js:0-758
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

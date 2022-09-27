@@ -9,7 +9,10 @@ import thunk from "redux-thunk";
 import { createFirestoreInstance ,getFirestore} from "redux-firestore";
 import { ReactReduxFirebaseProvider, getFirebase } from "react-redux-firebase";
 import firebaseConfig from "./config/fbConfig";
+import { useSelector } from 'react-redux'
+import { isLoaded } from 'react-redux-firebase'
 
+console.log("isLoaded " ,isLoaded);
 const store = createStore(
   rootReducer,
   compose(applyMiddleware(thunk.withExtraArgument({ getFirebase,getFirestore })))
@@ -17,7 +20,8 @@ const store = createStore(
 const rrfConfig = {
   userProfile: 'users',
   useFirestoreForProfile: true,
-  enableLogging: true
+  enableLogging: true,
+  attachAuthIsReady: true,
 }; 
 // react-redux-firebase config
 // userProfile: "users",
@@ -31,18 +35,28 @@ const rrfProps = {
   createFirestoreInstance
 };
 
+function AuthIsLoaded({ children }) {
 
+  const auth = useSelector(state => state.firebase.auth)
+  console.log("auth loaded ",auth);
+  if (!isLoaded(auth)) return <div>splash screen...</div>;
+  return children
+}
 //https://codesandbox.io/s/blissful-lehmann-r610w?file=/src/index.js:0-758
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
+ 
   <React.StrictMode>
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...rrfProps}>
+      <AuthIsLoaded>
         <App />
+        </AuthIsLoaded>
       </ReactReduxFirebaseProvider>
     </Provider>
   </React.StrictMode>
+ 
 );
 
 // If you want to start measuring performance in your app, pass a function

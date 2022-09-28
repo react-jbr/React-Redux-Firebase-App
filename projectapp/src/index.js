@@ -38,9 +38,9 @@ const rrfProps = {
 function AuthIsLoaded({ children }) {
 
   const auth = useSelector(state => state.firebase.auth)
-  console.log("auth loaded ",auth);
-  if (!isLoaded(auth)) return <div>splash screen...</div>;
-  return children
+  console.log("auth loaded..aaaaaaaaaaaaaaaaaaaaa ",auth);
+  if (isLoaded(auth)) return children
+  
 }
 //https://codesandbox.io/s/blissful-lehmann-r610w?file=/src/index.js:0-758
 

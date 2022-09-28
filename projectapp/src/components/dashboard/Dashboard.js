@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ProjectList from "../projects/ProjectList";
 import Notifications from "./Notifications";
 import {connect} from 'react-redux'
 import {firestoreConnect} from 'react-redux-firebase';
 import {compose} from 'redux' ;
- 
+import { useNavigate } from "react-router-dom";
 const Dashboard = (props) => {
   //const projects = useSelector((state) => state.project);
+  let navigate = useNavigate();
+const {projects,auth}=props;
+useEffect(() => {
+  // if(!auth.uid) return navigate('/signin')
+}, [])
 
-const {projects}=props;
-
+if(!auth.uid) return navigate('/signin')
   return (
     <div className="dashboard container">
       <div className="row">
@@ -28,7 +32,8 @@ const mapStateToProps = (state) =>{
    
   return {
     // projects:state.project.projects,
-    projects:state.firestore.ordered.projects
+    projects:state.firestore.ordered.projects,   
+    auth: state.firebase.auth,
   }
 }
 //export default connect(mapStateToProps)(Dashboard);

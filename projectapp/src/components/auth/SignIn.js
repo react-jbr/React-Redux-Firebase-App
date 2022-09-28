@@ -1,21 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { signIn } from "../../store/actions/authActions";
-
+import { useNavigate } from "react-router-dom";
 function SignIn(props) {
   const [state, setState] = useState({ email: "", password: "" });
-
+  let navigate = useNavigate();
   const handleChange = (e) => {
-    setState({ ...state, [e.target.id]: e.target.value });
+    setState((state)=>({ ...state, [e.target.id]: e.target.value }));
   };
+
+  useEffect(()=>{
+    const handleChange = (e) => {
+        setState((state)=>({ ...state, [e.target.id]: e.target.value }));
+      };
+    
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // console.log(state.email);
     props.signInData(state);
   };
-  const { authError } = props;
-
+  const { authError,auth } = props;
+  console.log("lllllllllllll",auth);
+  useEffect(() => {
+    if(auth.uid) return navigate('/')
+  }, [])
+  if(auth.uid) return navigate('/')
   return (
     <div className="container">
       <form onSubmit={handleSubmit} className="white">
@@ -52,12 +63,14 @@ function SignIn(props) {
 const mapStateToProps = (state) => {
   return {
     authError: state.auth.authError,
+    auth: state.firebase.auth,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     signInData: (creds) => dispatch(signIn(creds)),
+    
   };
 };
 
